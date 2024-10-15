@@ -1,25 +1,50 @@
 package disneyapi;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//import java.lang.ModuleLayer.Controller;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import java.util.Random;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainscene.fxml"));
+            Parent root = loader.load();
+            // Controller controller = loader.getController();
+            // controller.setMainWindow(primaryStage);
+
+            primaryStage.setTitle("Disney API");
+            primaryStage.setResizable(false);
+            primaryStage.setScene(new Scene(root, 600, 400));
+            primaryStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Ruta del archivo disneyapi.xml
         String urlDisneyApiFile = "disneyapi/src/main/resources/disneyapi/disneyapi.json";
         File disneyApiFile = new File(urlDisneyApiFile);
-        //-- -- -- -- System.out.println("Ruta del archivo: " + disneyApiFile.getAbsolutePath());
+        // -- -- -- -- System.out.println("Ruta del archivo: " +
+        // disneyApiFile.getAbsolutePath());
         if (disneyApiFile.exists()) {
             // Si el archivo existe, mostramos los datos en una ventana
             try {
                 // Enseñamos una ventana con los datos de la api filtrados
-                
+                System.out.println("hola");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -31,6 +56,8 @@ public class MainApp extends Application {
                 System.out.println("Se ha generado un JSON");
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                // Cerramos el archivo
             }
         }
     }
@@ -44,7 +71,7 @@ public class MainApp extends Application {
      */
 
     public void generateJSONfromAPI() throws Exception {
-        String apiUrl = "https://api.disneyapi.dev/character/";  //(FUTURAMENTE SE CAMBIARA Y SE PASARA POR PARAMETRO)
+        String apiUrl = "https://api.disneyapi.dev/character/"; // (FUTURAMENTE SE CAMBIARA Y SE PASARA POR PARAMETRO)
         URL url = new URL(apiUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -59,13 +86,15 @@ public class MainApp extends Application {
         conn.disconnect();
         System.out.println(content.toString());
 
-        //Especificamos la ruta del archivo JSON.
+        // Especificamos la ruta del archivo JSON.
         String filePath = "disneyapi/src/main/resources/disneyapi/disneyapi.json";
 
         // Creamos el directorio si no existe.
         File file = new File(filePath);
-        //-- -- -- -- System.out.println("\n\nadasdasd " + file.getAbsolutePath() + "\n");
-        file.getParentFile().mkdirs(); //Esto crea las carpetas disneyapi si no existen
+        //
+        // -- -- -- -- System.out.println( "\n\nadasdasd " + file.getAbsolutePath() +
+        // "\n");
+        file.getParentFile().mkdirs(); // Esto crea las carpetas disneyapi si no existen
 
         // Guardamos el contenido en un archivo JSON.
         try (FileWriter fileWriter = new FileWriter(filePath)) {
@@ -77,8 +106,26 @@ public class MainApp extends Application {
         }
     }
 
-    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS DE LA API
+    /*public JSONArray getCharactersFromAPI(File file) throws Exception {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder jsonContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
 
+            // Convertimos el JSON a un JSONObject y extraemos el array "data"
+            JSONObject json = new JSONObject(jsonContent.toString());
+            return json.getJSONArray("data");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
+
+    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS
+    // DE LA API
     public static void main(String[] args) {
         launch(args);
     }
