@@ -1,19 +1,22 @@
 package disneyapi;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-//import java.lang.ModuleLayer.Controller;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import java.util.Random;
-//import org.json.JSONArray;
-//import org.json.JSONObject;
 
 public class MainApp extends Application {
 
@@ -44,7 +47,6 @@ public class MainApp extends Application {
             // Si el archivo existe, mostramos los datos en una ventana
             try {
                 // Enseñamos una ventana con los datos de la api filtrados
-                System.out.println("hola");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,7 +55,15 @@ public class MainApp extends Application {
             // Si no existe, hacemos la solicitud a la API y guardamos en un JSON
             try {
                 generateJSONfromAPI();
+                Stage primaryStage1 = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("usuarioscene.fxml"));
+                Parent root = loader.load();
+                primaryStage1.setTitle("Disney API");
+                primaryStage1.setResizable(false);
+                primaryStage1.setScene(new Scene(root, 600, 400));
+                primaryStage1.show();
                 System.out.println("Se ha generado un JSON");
+                System.out.println(getCharactersFromAPI(disneyApiFile));
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -63,13 +73,12 @@ public class MainApp extends Application {
     }
 
     /**
-     * Hace una solicitud a la API de Disney y guarda los datos en un archivo JSON.
-     * Si el archivo no existe, se crean las carpetas necesarias.
-     * 
-     * @throws Exception si hay un error al hacer la solicitud o al escribir en el
-     *                   archivo.
+     * Hace una solicitud a la API de Disney y guarda los datos en un archivo
+     * JSON. Si el archivo no existe, se crean las carpetas necesarias.
+     *
+     * @throws Exception si hay un error al hacer la solicitud o al escribir en
+     * el archivo.
      */
-
     public void generateJSONfromAPI() throws Exception {
         String apiUrl = "https://api.disneyapi.dev/character/"; // (FUTURAMENTE SE CAMBIARA Y SE PASARA POR PARAMETRO)
         URL url = new URL(apiUrl);
@@ -106,7 +115,7 @@ public class MainApp extends Application {
         }
     }
 
-    /*public JSONArray getCharactersFromAPI(File file) throws Exception {
+    public JSONArray getCharactersFromAPI(File file) throws Exception {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder jsonContent = new StringBuilder();
             String line;
@@ -114,19 +123,21 @@ public class MainApp extends Application {
                 jsonContent.append(line);
             }
 
-            // Convertimos el JSON a un JSONObject y extraemos el array "data"
+            // Convert the JSON to a JSONObject and extract the array "data"
             JSONObject json = new JSONObject(jsonContent.toString());
             return json.getJSONArray("data");
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw e; // Handle the exception as needed
         }
-        return null;
-    }*/
+    }
 
-    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS
-    // DE LA API
+    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS DE LA API
     public static void main(String[] args) {
         launch(args);
     }
+    /*public void leerCosas(){
+        
+    }*/
 }
