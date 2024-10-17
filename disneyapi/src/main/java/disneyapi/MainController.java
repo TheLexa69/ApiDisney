@@ -2,10 +2,15 @@ package disneyapi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class MainController {
 
@@ -40,8 +45,19 @@ public class MainController {
     private TextArea txtAreaNL3;
 
     @FXML
-    void onBtnLoginClick(ActionEvent event) {
-
+    void onBtnLoginClick(ActionEvent event) throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("loginscene.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
