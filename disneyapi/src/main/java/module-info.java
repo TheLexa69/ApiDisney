@@ -1,6 +1,7 @@
 module disneyapi {
     requires javafx.controls;
-    requires javafx.fxml;
+    requires javafx.graphics;
+    requires transitive javafx.fxml;
     requires json.simple;
     requires org.json;
 
