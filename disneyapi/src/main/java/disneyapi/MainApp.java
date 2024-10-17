@@ -72,6 +72,19 @@ public class MainApp extends Application {
         }
     }
 
+
+    public void generateCredentials(){
+        String filePath = "disneyapi/src/main/resources/data/credentials.xml";
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Hace una solicitud a la API de Disney y guarda los datos en un archivo
      * JSON. Si el archivo no existe, se crean las carpetas necesarias.
