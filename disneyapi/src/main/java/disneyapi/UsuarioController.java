@@ -2,12 +2,15 @@ package disneyapi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class UsuarioController {
 
@@ -68,12 +71,28 @@ public class UsuarioController {
             // Lógica específica para "Pelicula"
             System.out.println("Has seleccionado una Película.");
         }else{
-            System.out.println("Vacio");
+            // Mostrar una alerta si las credenciales son incorrectas
+            showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
+        }
+        String personajeIntroducido = txtIntroducirPersonaje.getText();
+
+        // Comprobar si el campo no está vacío
+        if (!personajeIntroducido.isEmpty()) {
+            // Lógica para usar el texto introducido
+            System.out.println("Personaje introducido: " + personajeIntroducido);
+        } else {
+            // Mostrar una alerta si las credenciales son incorrectas
+            showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
         }
     }
 
     @FXML
     void onBtnClickSalirUsuario(ActionEvent event) {
+    // Obtener el escenario (Stage) actual
+    Stage stage = (Stage) btnUsuarioSalir.getScene().getWindow();
+    
+    // Cerrar el escenario
+    stage.close();
 
     }
 
@@ -83,6 +102,15 @@ public class UsuarioController {
         cmboxUsuario.getItems().addAll("Personaje", "Pelicula");
         cmboxUsuario.setValue("Personaje");
 
+    }
+
+     // Método para mostrar una alerta
+     private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }
