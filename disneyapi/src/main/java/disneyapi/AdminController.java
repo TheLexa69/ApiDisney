@@ -50,7 +50,7 @@ public class AdminController {
     }
 
     @FXML
-    void onBtnSalirAdminScene(ActionEvent event) {
+    void onBtnSalirAdmin(ActionEvent event) {
 
     }
 

@@ -22,12 +22,51 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // ---- VERIFICAMOS SI EXISTE LA CARPETA DE CREDENCIALES ----
+        CredentialsManagement credentialsManagement = new CredentialsManagement();
+        String urlCredentials = "disneyapi/src/main/resources/data/credentials.xml";
+        File credentialsFile = new File(urlCredentials);
+        if (!credentialsFile.exists()) {
+            try {
+                credentialsManagement.generateCredentials();
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // ---- VERIFICAMOS SI EXISTE EL ARCHIVO JSON DE LA API Y SI NO LO GENERA ----
+        String urlDisneyApiFile = "disneyapi/src/main/resources/disneyapi/disneyapi.json";
+        File disneyApiFile = new File(urlDisneyApiFile);
+        if (disneyApiFile.exists()) {
+            try {
+                // ENSEÑAMOS EL MAINSCENE CON 3 DATOS DE LA API
+                showMainScene(primaryStage);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                generateJSONfromAPI(); // GENERAMOS LA API JSON
+                showMainScene(primaryStage); // ENSEÑAMOS EL MAINSCENE CON 3 DATOS DE LA API
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Shows the main scene with 3 data from the API
+     * 
+     * @param primaryStage the stage to show the main scene
+     * @throws IOException if there is an error loading the scene
+     */
+    public void showMainScene(Stage primaryStage) {
+        // ENSEÑAMOS EL MAINSCENE CON 3 DATOS DE LA API
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("mainscene.fxml"));
             Parent root = loader.load();
-            // Controller controller = loader.getController();
-            // controller.setMainWindow(primaryStage);
 
             primaryStage.setTitle("Disney API");
             primaryStage.setResizable(false);
@@ -37,43 +76,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Ruta del archivo disneyapi.xml
-        String urlDisneyApiFile = "disneyapi/src/main/resources/disneyapi/disneyapi.json";
-        File disneyApiFile = new File(urlDisneyApiFile);
-        // -- -- -- -- System.out.println("Ruta del archivo: " +
-        // disneyApiFile.getAbsolutePath());
-        if (disneyApiFile.exists()) {
-            // Si el archivo existe, mostramos los datos en una ventana
-            try {
-                // Enseñamos una ventana con los datos de la api filtrados
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            // Si no existe, hacemos la solicitud a la API y guardamos en un JSON
-            try {
-                generateJSONfromAPI();
-                Stage primaryStage1 = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("usuarioscene.fxml"));
-                Parent root = loader.load();
-                primaryStage1.setTitle("Disney API");
-                primaryStage1.setResizable(false);
-                primaryStage1.setScene(new Scene(root, 600, 400));
-                primaryStage1.show();
-                System.out.println("Se ha generado un JSON");
-                System.out.println(getCharactersFromAPI(disneyApiFile));
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                // Cerramos el archivo
-            }
-        }
-
-        CredentialsManagement credentialsManagement = new CredentialsManagement();
-        credentialsManagement.generateCredentials();
-
     }
 
     /**
@@ -137,14 +139,9 @@ public class MainApp extends Application {
         }
     }
 
-    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS
-    // DE LA API
+
+    
     public static void main(String[] args) {
         launch(args);
     }
-    /*
-     * public void leerCosas(){
-     * 
-     * }
-     */
 }
