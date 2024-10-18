@@ -42,7 +42,7 @@ public class LoginController {
         String contra = txtContraScene.getText();
 
         System.out.println("Usuario: " + usuario + ", Contraseña: " + contra);
-        String rol = "administrador";
+        String rol = "usuario";
 
         String fxmlFile = rol.equals("administrador") ? "adminscene.fxml" : "usuarioscene.fxml";
         String title = rol.equals("administrador") ? "Panel Administrador" : "Panel Usuario";
