@@ -163,26 +163,4 @@ public class CredentialsManagement {
         return false;
     }
 
-    public static void main(String[] args) {
-        // CredentialsManager manager = new CredentialsManager();
-
-        // ---- Generar el archivo XML
-        // manager.generateCredentials();
-
-        // ---- Simular login
-        // Scanner scanner = new Scanner(System.in);
-        // System.out.print("Ingrese su nombre de usuario: ");
-        // String username = scanner.nextLine();
-        // System.out.print("Ingrese su contraseña: ");
-        // String password = scanner.nextLine();
-
-        // boolean isLoginSuccessful = manager.readCredentials(username, password);
-        // if (isLoginSuccessful) {
-        // System.out.println("Autenticación correcta.");
-        // } else {
-        // System.out.println("Error en la autenticación.");
-        // }
-
-        // scanner.close();
-    }
 }

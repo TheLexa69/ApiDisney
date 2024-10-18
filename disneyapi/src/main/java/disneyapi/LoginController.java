@@ -39,6 +39,18 @@ public class LoginController {
         imgLoginScene.setPreserveRatio(true);
     }
 
+    /**
+     * Handles the button click event for the login scene.
+     * Retrieves the username and password from input fields, verifies the
+     * credentials using readCredentials function,
+     * and based on the login success, loads the corresponding scene for the user
+     * role.
+     * If login is successful, loads the admin or user scene with the specified
+     * title.
+     * If login fails, displays an alert for incorrect credentials.
+     *
+     * @param event the ActionEvent representing the button click
+     */
     @FXML
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();

@@ -61,4 +61,9 @@ public class MainController {
         }
     }
 
+    @FXML
+    void initialize() {
+        TitledPane2.setText("Hola");
+    }
+
 }

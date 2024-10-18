@@ -73,6 +73,8 @@ public class MainApp extends Application {
             primaryStage.setScene(new Scene(root, 600, 400));
             primaryStage.show();
 
+            MainController mainController = new MainController();
+            //mainController.set
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,8 +140,6 @@ public class MainApp extends Application {
             throw e; // Handle the exception as needed
         }
     }
-
-
     
     public static void main(String[] args) {
         launch(args);
