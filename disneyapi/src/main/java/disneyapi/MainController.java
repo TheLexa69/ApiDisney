@@ -55,6 +55,7 @@ public class MainController {
             stage.setResizable(false);
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

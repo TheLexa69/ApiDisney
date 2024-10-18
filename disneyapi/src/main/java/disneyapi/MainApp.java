@@ -70,27 +70,18 @@ public class MainApp extends Application {
                 // Cerramos el archivo
             }
         }
+
+        CredentialsManagement credentialsManagement = new CredentialsManagement();
+        credentialsManagement.generateCredentials();
+
     }
-
-
-    public void generateCredentials(){
-        String filePath = "disneyapi/src/main/resources/data/credentials.xml";
-    }
-
-
-
-
-
-
-
-
 
     /**
      * Hace una solicitud a la API de Disney y guarda los datos en un archivo
      * JSON. Si el archivo no existe, se crean las carpetas necesarias.
      *
      * @throws Exception si hay un error al hacer la solicitud o al escribir en
-     * el archivo.
+     *                   el archivo.
      */
     public void generateJSONfromAPI() throws Exception {
         String apiUrl = "https://api.disneyapi.dev/character/"; // (FUTURAMENTE SE CAMBIARA Y SE PASARA POR PARAMETRO)
@@ -146,11 +137,14 @@ public class MainApp extends Application {
         }
     }
 
-    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS DE LA API
+    // HACER DEBAJO LA FUNCION DE ENSEÑAR EN UNA CAJA DIALOG CON LOS DATOS FILTRADOS
+    // DE LA API
     public static void main(String[] args) {
         launch(args);
     }
-    /*public void leerCosas(){
-        
-    }*/
+    /*
+     * public void leerCosas(){
+     * 
+     * }
+     */
 }

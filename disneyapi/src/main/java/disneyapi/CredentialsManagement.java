@@ -33,27 +33,29 @@ public class CredentialsManagement {
         StringBuilder hexString = new StringBuilder();
         for (byte b : hash) {
             String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) hexString.append('0');
+            if (hex.length() == 1)
+                hexString.append('0');
             hexString.append(hex);
         }
         return hexString.toString();
     }
 
-    // Función para generar el archivo credentials.xml con los usuarios y contraseñas encriptadas
+    // Función para generar el archivo credentials.xml con los usuarios y
+    // contraseñas encriptadas
     public void generateCredentials() {
         String filePath = "disneyapi/src/main/resources/data/credentials.xml";
-        
         try {
-            //---- Crear el documento XML
+            System.out.println(hashPassword("abc"));
+            // ---- Crear el documento XML
             // DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             // DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             // Document doc = docBuilder.newDocument();
-            
-            //---- Nodo raíz <groupUsers>
+
+            // ---- Nodo raíz <groupUsers>
             // Element rootElement = doc.createElement("groupUsers");
             // doc.appendChild(rootElement);
-            
-            //---- Crear el primer usuario
+
+            // ---- Crear el primer usuario
             // Element user1 = doc.createElement("user");
             // rootElement.appendChild(user1);
             // Element username1 = doc.createElement("username");
@@ -65,8 +67,8 @@ public class CredentialsManagement {
             // Element rol1 = doc.createElement("rol");
             // rol1.appendChild(doc.createTextNode("administrador"));
             // user1.appendChild(rol1);
-            
-            //---- Crear el segundo usuario
+
+            // ---- Crear el segundo usuario
             // Element user2 = doc.createElement("user");
             // rootElement.appendChild(user2);
             // Element username2 = doc.createElement("username");
@@ -78,15 +80,16 @@ public class CredentialsManagement {
             // Element rol2 = doc.createElement("rol");
             // rol2.appendChild(doc.createTextNode("usuario"));
             // user2.appendChild(rol2);
-            
-            //---- Guardar el archivo XML
+
+            // ---- Guardar el archivo XML
             // TransformerFactory transformerFactory = TransformerFactory.newInstance();
             // Transformer transformer = transformerFactory.newTransformer();
             // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             // DOMSource source = new DOMSource(doc);
-            // StreamResult result = new StreamResult(new FileOutputStream(new File(filePath)));
+            // StreamResult result = new StreamResult(new FileOutputStream(new
+            // File(filePath)));
             // transformer.transform(source, result);
-            
+
             System.out.println("Archivo credentials.xml generado con éxito.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,37 +100,39 @@ public class CredentialsManagement {
     public boolean readCredentials(String inputUsername, String inputPassword) {
         String filePath = "disneyapi/src/main/resources/data/credentials.xml";
         try {
-            //---- Parsear el archivo XML
+            // ---- Parsear el archivo XML
             // File xmlFile = new File(filePath);
             // DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             // DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             // Document doc = dBuilder.parse(xmlFile);
             // doc.getDocumentElement().normalize();
-            
-            //---- Obtener los usuarios
-            //NodeList usersList = doc.getElementsByTagName("user");
-            
+
+            // ---- Obtener los usuarios
+            // NodeList usersList = doc.getElementsByTagName("user");
+
             // Hashear la contraseña ingresada para compararla
             String hashedInputPassword = hashPassword(inputPassword);
-            
-            //---- Recorrer la lista de usuarios
+
+            // ---- Recorrer la lista de usuarios
             // for (int i = 0; i < usersList.getLength(); i++) {
-            //     Node node = usersList.item(i);
-                
-            //     if (node.getNodeType() == Node.ELEMENT_NODE) {
-            //         Element element = (Element) node;
-            //         String username = element.getElementsByTagName("username").item(0).getTextContent();
-            //         String password = element.getElementsByTagName("password").item(0).getTextContent();
-            //         String rol = element.getElementsByTagName("rol").item(0).getTextContent();
-                    
-            //         // Verificar si el usuario y la contraseña coinciden
-            //         if (username.equals(inputUsername) && password.equals(hashedInputPassword)) {
-            //             System.out.println("Login exitoso. Usuario: " + username + ", Rol: " + rol);
-            //             return true;
-            //         }
-            //     }
+            // Node node = usersList.item(i);
+
+            // if (node.getNodeType() == Node.ELEMENT_NODE) {
+            // Element element = (Element) node;
+            // String username =
+            // element.getElementsByTagName("username").item(0).getTextContent();
+            // String password =
+            // element.getElementsByTagName("password").item(0).getTextContent();
+            // String rol = element.getElementsByTagName("rol").item(0).getTextContent();
+
+            // // Verificar si el usuario y la contraseña coinciden
+            // if (username.equals(inputUsername) && password.equals(hashedInputPassword)) {
+            // System.out.println("Login exitoso. Usuario: " + username + ", Rol: " + rol);
+            // return true;
             // }
-            
+            // }
+            // }
+
             System.out.println("Credenciales incorrectas.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,24 +142,24 @@ public class CredentialsManagement {
 
     public static void main(String[] args) {
         // CredentialsManager manager = new CredentialsManager();
-        
-        //---- Generar el archivo XML
+
+        // ---- Generar el archivo XML
         // manager.generateCredentials();
-        
-        //----  Simular login
+
+        // ---- Simular login
         // Scanner scanner = new Scanner(System.in);
         // System.out.print("Ingrese su nombre de usuario: ");
         // String username = scanner.nextLine();
         // System.out.print("Ingrese su contraseña: ");
         // String password = scanner.nextLine();
-        
+
         // boolean isLoginSuccessful = manager.readCredentials(username, password);
         // if (isLoginSuccessful) {
-        //     System.out.println("Autenticación correcta.");
+        // System.out.println("Autenticación correcta.");
         // } else {
-        //     System.out.println("Error en la autenticación.");
+        // System.out.println("Error en la autenticación.");
         // }
-        
+
         // scanner.close();
     }
 }
