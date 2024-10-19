@@ -22,6 +22,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        
         // ---- VERIFICAMOS SI EXISTE LA CARPETA DE CREDENCIALES ----
         CredentialsManagement credentialsManagement = new CredentialsManagement();
         String urlCredentials = "disneyapi/src/main/resources/data/credentials.xml";
@@ -143,5 +144,6 @@ public class MainApp extends Application {
     
     public static void main(String[] args) {
         launch(args);
+        //UsuarioController.comprobarName("Abdullah");
     }
 }

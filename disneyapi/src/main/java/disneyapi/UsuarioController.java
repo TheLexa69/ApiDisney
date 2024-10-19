@@ -1,5 +1,10 @@
 package disneyapi;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -62,28 +67,7 @@ public class UsuarioController {
 
     @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
-        // Obtener el valor seleccionado del ComboBox
-        String seleccion = cmboxUsuario.getValue();
-        if (seleccion.equals("Personaje")) {
-            // Lógica específica para "Personaje"
-            System.out.println("Has seleccionado un Personaje.");
-        } else if (seleccion.equals("Pelicula")) {
-            // Lógica específica para "Pelicula"
-            System.out.println("Has seleccionado una Película.");
-        }else{
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
-        }
-        String personajeIntroducido = txtIntroducirPersonaje.getText();
-
-        // Comprobar si el campo no está vacío
-        if (!personajeIntroducido.isEmpty()) {
-            // Lógica para usar el texto introducido
-            System.out.println("Personaje introducido: " + personajeIntroducido);
-        } else {
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
-        }
+        personaje();
     }
 
     @FXML
@@ -112,5 +96,32 @@ public class UsuarioController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public void personaje() {
+
+        // Obtener el valor seleccionado del ComboBox
+        String seleccion = cmboxUsuario.getValue();
+        if (seleccion.equals("Personaje")) {
+            // Lógica específica para "Personaje"
+            System.out.println("Has seleccionado un Personaje.");
+        } else if (seleccion.equals("Pelicula")) {
+            // Lógica específica para "Pelicula"
+            System.out.println("Has seleccionado una Película.");
+        } else {
+            // Mostrar una alerta si las credenciales son incorrectas
+            showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
+        }
+        String personajeIntroducido = txtIntroducirPersonaje.getText();
+
+        // Comprobar si el campo no está vacío
+        if (!personajeIntroducido.isEmpty()) {
+            // Lógica para usar el texto introducido
+            System.out.println("Personaje introducido: " + personajeIntroducido);
+        } else {
+            // Mostrar una alerta si las credenciales son incorrectas
+            showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
+        }
+        Usuario.comprobarName(personajeIntroducido);
+    }
+    
 
 }
