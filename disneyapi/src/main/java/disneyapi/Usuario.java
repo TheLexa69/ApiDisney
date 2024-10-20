@@ -80,51 +80,6 @@ public class Usuario {
             e.printStackTrace();
         }
     }
-    // public static String comprobarName(String nombreBuscado) {
-    //     StringBuilder filmsString = new StringBuilder(); // Para almacenar los films
-    
-    //     try {
-    //         // Lee el contenido del archivo JSON
-    //         String jsonString = new String(
-    //                 Files.readAllBytes(Paths.get("disneyapi/src/main/resources/disneyapi.json")));
-    
-    //         // Procesa el JSON
-    //         JSONObject jsonObject = new JSONObject(jsonString);
-    //         JSONArray dataArray = jsonObject.getJSONArray("data");
-    
-    //         boolean encontrado = false; // Variable para indicar si se encontró el nombre
-    
-    //         for (int i = 0; i < dataArray.length(); i++) {
-    //             JSONObject character = dataArray.getJSONObject(i);
-    //             String name = character.getString("name");
-    //             // Comparar el nombre con el nombre buscado
-    //             if (name.equalsIgnoreCase(nombreBuscado)) {
-    //                 JSONArray filmsArray = character.getJSONArray("films"); // Obtiene el array de films
-    //                 System.out.println("Nombre encontrado: " + name);
-                    
-    //                 // Construir el string de films
-    //                 for (int j = 0; j < filmsArray.length(); j++) {
-    //                     filmsString.append(filmsArray.getString(j));
-    //                     if (j < filmsArray.length() - 1) {
-    //                         filmsString.append(", "); // Agrega una coma si hay más films
-    //                     }
-    //                 }
-                    
-    //                 encontrado = true;
-    //                 break; // Sale del bucle si encuentra el nombre
-    //             }
-    //         }
-    
-    //         if (!encontrado) {
-    //             return "Nombre no encontrado: " + nombreBuscado; // Mensaje si no se encuentra
-    //         }
-    
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //         return "Error al leer el archivo JSON"; // Mensaje de error
-    //     }
-    
-    //     return filmsString.toString(); // Devuelve el string de films
-    // }
+
 
 }
