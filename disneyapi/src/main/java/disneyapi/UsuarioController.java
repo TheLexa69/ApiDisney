@@ -1,4 +1,5 @@
 package disneyapi;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -64,19 +65,19 @@ public class UsuarioController {
     @FXML
     private AnchorPane usuarioPanel;
 
-
     @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
-        personaje();
+        seleccion();
+
     }
 
     @FXML
     void onBtnClickSalirUsuario(ActionEvent event) {
-    // Obtener el escenario (Stage) actual
-    Stage stage = (Stage) btnUsuarioSalir.getScene().getWindow();
-    
-    // Cerrar el escenario
-    stage.close();
+        // Obtener el escenario (Stage) actual
+        Stage stage = (Stage) btnUsuarioSalir.getScene().getWindow();
+
+        // Cerrar el escenario
+        stage.close();
 
     }
 
@@ -88,21 +89,24 @@ public class UsuarioController {
 
     }
 
-     // Método para mostrar una alerta
-     private void showAlert(String title, String message) {
+    // Método para mostrar una alerta
+    private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-    public void personaje() {
 
+    public void seleccion() {
         // Obtener el valor seleccionado del ComboBox
         String seleccion = cmboxUsuario.getValue();
         if (seleccion.equals("Personaje")) {
             // Lógica específica para "Personaje"
-            System.out.println("Has seleccionado un Personaje.");
+            personaje();
+            lblPeliculasOutput.setText(Usuario.peliculas);
+            lblSeriesOutput.setText(Usuario.series);
+            lblVideojuegosOutput.setText(Usuario.juegos);
         } else if (seleccion.equals("Pelicula")) {
             // Lógica específica para "Pelicula"
             System.out.println("Has seleccionado una Película.");
@@ -110,6 +114,10 @@ public class UsuarioController {
             // Mostrar una alerta si las credenciales son incorrectas
             showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
+    }
+
+    public void personaje() {
+
         String personajeIntroducido = txtIntroducirPersonaje.getText();
 
         // Comprobar si el campo no está vacío
@@ -122,6 +130,5 @@ public class UsuarioController {
         }
         Usuario.comprobarName(personajeIntroducido);
     }
-    
 
 }
