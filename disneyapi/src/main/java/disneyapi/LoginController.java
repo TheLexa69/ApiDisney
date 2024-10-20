@@ -39,7 +39,6 @@ public class LoginController {
         imgLoginScene.setPreserveRatio(true);
     }
 
-    
     /**
      * Maneja el evento de click en el botón de Login en la escena de Login.
      * 
@@ -55,18 +54,25 @@ public class LoginController {
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();
         String contra = txtContraScene.getText();
-    
+
         System.out.println("Usuario: " + usuario + ", Contraseña: " + contra);
-    
+
         String rol = credentialsManagement.getUserRole(usuario, contra);
-    
-        if (rol != null) {  // Rol no es nulo si el login es exitoso
+
+        if (rol != null) { // Si el login es exitoso
             String fxmlFile = rol.equals("administrador") ? "adminscene.fxml" : "usuarioscene.fxml";
             String title = rol.equals("administrador") ? "Panel Administrador" : "Panel Usuario";
-    
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
                 Parent root = loader.load();
+
+                // Obtener el controlador de la nueva escena
+                if (rol.equals("administrador")) {
+                    AdminController adminController = loader.getController();
+                    adminController.lblAdminName.setText(usuario); // Pasar el nombre del usuario
+                }
+
                 Stage stage = new Stage();
                 stage.setTitle(title);
                 stage.setResizable(false);
@@ -77,11 +83,10 @@ public class LoginController {
                 e.printStackTrace();
             }
         } else {
-            // Mostramos una alerta si las credenciales son incorrectas
+            // Mostrar alerta si las credenciales son incorrectas
             showAlert("Login Fallido", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
-
 
     /**
      * Muestra una alerta con título y mensaje de error.

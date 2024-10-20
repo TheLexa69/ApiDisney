@@ -36,7 +36,7 @@ public class AdminController {
     private Button btnCancelar;
 
     @FXML
-    private Label lblAdminName;
+    protected Label lblAdminName;
 
     @FXML
     private Label lblContra;
