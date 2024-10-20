@@ -33,40 +33,37 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Cargar la imagen de inicio de sesión
+        // Cargamos la imagen de inicio de sesión
         Image image = new Image(getClass().getResourceAsStream("/images/disney.png"));
         imgLoginScene.setImage(image);
         imgLoginScene.setPreserveRatio(true);
     }
 
+    
     /**
-     * Handles the button click event for the login scene.
-     * Retrieves the username and password from input fields, verifies the
-     * credentials using readCredentials function,
-     * and based on the login success, loads the corresponding scene for the user
-     * role.
-     * If login is successful, loads the admin or user scene with the specified
-     * title.
-     * If login fails, displays an alert for incorrect credentials.
-     *
-     * @param event the ActionEvent representing the button click
+     * Maneja el evento de click en el botón de Login en la escena de Login.
+     * 
+     * Verifica si el usuario y contraseña ingresados son correctos mediante la
+     * función getUserRole() de la clase CredentialsManagement. Si el login es
+     * exitoso, crea una instancia de la escena correspondiente al rol del usuario
+     * (administrador o usuario) y la muestra en una ventana nueva. Si el login
+     * falla, muestra una alerta con un mensaje de error.
+     * 
+     * @param event el evento de click en el botón de Login
      */
     @FXML
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();
         String contra = txtContraScene.getText();
-
+    
         System.out.println("Usuario: " + usuario + ", Contraseña: " + contra);
-
-        // Verificar credenciales con la función readCredentials
-        boolean isLoginSuccessful = credentialsManagement.readCredentials(usuario, contra);
-
-        if (isLoginSuccessful) {
-            // Si el login es exitoso, determinar el rol y cargar la escena correspondiente
-            String rol = usuario.equals("profe") ? "administrador" : "usuario"; // Basado en el nombre de usuario
+    
+        String rol = credentialsManagement.getUserRole(usuario, contra);
+    
+        if (rol != null) {  // Rol no es nulo si el login es exitoso
             String fxmlFile = rol.equals("administrador") ? "adminscene.fxml" : "usuarioscene.fxml";
             String title = rol.equals("administrador") ? "Panel Administrador" : "Panel Usuario";
-
+    
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
                 Parent root = loader.load();
@@ -80,12 +77,18 @@ public class LoginController {
                 e.printStackTrace();
             }
         } else {
-            // Mostrar una alerta si las credenciales son incorrectas
+            // Mostramos una alerta si las credenciales son incorrectas
             showAlert("Login Fallido", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
 
-    // Método para mostrar una alerta
+
+    /**
+     * Muestra una alerta con título y mensaje de error.
+     * 
+     * @param title   título de la alerta
+     * @param message mensaje de error que se muestra en la alerta
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
