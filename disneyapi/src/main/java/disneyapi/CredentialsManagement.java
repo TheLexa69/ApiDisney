@@ -69,14 +69,17 @@ public class CredentialsManagement {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
-
+    
             // ---- Nodo raíz <groupUsers>
             Element rootElement = doc.createElement("groupUsers");
             doc.appendChild(rootElement);
-
+    
             // ---- Crear el primer usuario
             Element user1 = doc.createElement("user");
             rootElement.appendChild(user1);
+            Element iduser1 = doc.createElement("id");
+            iduser1.appendChild(doc.createTextNode("1"));
+            user1.appendChild(iduser1);
             Element username1 = doc.createElement("username");
             username1.appendChild(doc.createTextNode("profe"));
             user1.appendChild(username1);
@@ -86,10 +89,13 @@ public class CredentialsManagement {
             Element rol1 = doc.createElement("rol");
             rol1.appendChild(doc.createTextNode("administrador"));
             user1.appendChild(rol1);
-
+    
             // ---- Crear el segundo usuario
             Element user2 = doc.createElement("user");
             rootElement.appendChild(user2);
+            Element iduser2 = doc.createElement("id");
+            iduser2.appendChild(doc.createTextNode("2")); // Cambiado a "2"
+            user2.appendChild(iduser2); // Corrige aquí también
             Element username2 = doc.createElement("username");
             username2.appendChild(doc.createTextNode("estudiante"));
             user2.appendChild(username2);
@@ -99,7 +105,7 @@ public class CredentialsManagement {
             Element rol2 = doc.createElement("rol");
             rol2.appendChild(doc.createTextNode("usuario"));
             user2.appendChild(rol2);
-
+    
             // ---- Guardar el archivo XML
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -107,7 +113,7 @@ public class CredentialsManagement {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new FileOutputStream(new File(filePath)));
             transformer.transform(source, result);
-
+    
             System.out.println("Archivo credentials.xml generado con éxito.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,20 +132,20 @@ public class CredentialsManagement {
     public boolean readCredentials(String inputUsername, String inputPassword) {
         String filePath = "disneyapi/src/main/resources/data/credentials.xml";
         try {
-            // ---- Parsear el archivo XML
+            // ---- Parseamos el archivo XML
             File xmlFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
-            // ---- Obtener los usuarios
+            // ---- Obtenemos los usuarios
             NodeList usersList = doc.getElementsByTagName("user");
 
             // Hashear la contraseña ingresada para compararla
             String hashedInputPassword = hashPassword(inputPassword);
 
-            // ---- Recorrer la lista de usuarios
+            // ---- Recorremos la lista de usuarios
             for (int i = 0; i < usersList.getLength(); i++) {
                 Node node = usersList.item(i);
 
