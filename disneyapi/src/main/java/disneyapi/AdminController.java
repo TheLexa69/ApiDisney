@@ -17,8 +17,16 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Optional;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
 
 public class AdminController {
 
@@ -42,6 +50,9 @@ public class AdminController {
 
     @FXML
     private Button btnConfirmar;
+
+    @FXML
+    private Button btnGuardarLista;
 
     @FXML
     private Button btnCancelar;
@@ -90,6 +101,49 @@ public class AdminController {
     }
 
     @FXML
+    void onBtnGuardarLista(ActionEvent event) {
+        try {
+
+            List<User> users = AdminModel.listUsers(); // Obtener la lista de usuarios
+
+            // Si la lista está vacía, mostramos una alerta
+            if (users == null || users.isEmpty()) {
+                showAlert("Información", "No hay usuarios disponibles para guardar.");
+                return;
+            }
+
+            // Usar FileChooser para seleccionar el tipo de archivo y la ubicación
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar lista de usuarios");
+
+            // Agregar extensiones de archivos permitidos
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Archivo de texto (*.txt)", "*.txt"),
+                    new FileChooser.ExtensionFilter("Archivo binario (*.bin)", "*.bin"),
+                    new FileChooser.ExtensionFilter("Archivo JSON (*.json)", "*.json"),
+                    new FileChooser.ExtensionFilter("Archivo XML (*.xml)", "*.xml"));
+
+            // Mostrar el diálogo para guardar archivo
+            File file = fileChooser.showSaveDialog(btnGuardarLista.getScene().getWindow());
+            if (file != null) {
+                // Obtener la extensión seleccionada
+                String filePath = file.getAbsolutePath();
+                if (filePath.endsWith(".txt")) {
+                    guardarComoTxt(users, file);
+                } else if (filePath.endsWith(".bin")) {
+                    guardarComoBinario(users, file);
+                } else if (filePath.endsWith(".json")) {
+                    guardarComoJson(users, file); // Usa Jackson para JSON
+                } else if (filePath.endsWith(".xml")) {
+                    guardarComoXml(users, file); // Usa Jackson para XML
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("(AdminController -> onBtnGuardarLista()): " + e.getMessage());
+        }
+    }
+
+    @FXML
     void onBtnListaUsuAdminScene(ActionEvent event) {
         clearFields();
         setFieldsVisibleNuevoUsu(false);
@@ -107,7 +161,7 @@ public class AdminController {
 
                 // Si hay usuarios en la lista, muestra el botón de eliminar
                 btnClicBorrarUsuPnl.setVisible(true);
-
+                System.out.println(users.toString());
             } else {
                 // Si no hay usuarios, puedes ocultar el botón o mostrar un mensaje
                 btnClicBorrarUsuPnl.setVisible(false);
@@ -171,9 +225,11 @@ public class AdminController {
         txtNombre.setVisible(false);
         txtContraseña.setVisible(false);
         btnConfirmar.setVisible(false);
+        btnGuardarLista.setVisible(false);
         btnCancelar.setVisible(false);
         lblRol.setVisible(false);
         cmbRolAdminScene.setVisible(false);
+        btnClicBorrarUsuPnl.setVisible(false);
     }
 
     @FXML
@@ -234,6 +290,7 @@ public class AdminController {
 
     private void setFieldsVisibleListUsu(boolean visible) {
         lstViewAdmin1.setVisible(visible);
+        btnGuardarLista.setVisible(visible);
     }
 
     // Método para limpiar los campos de texto
@@ -269,6 +326,52 @@ public class AdminController {
 
         // Verificar si el usuario seleccionó ACEPTAR
         return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
+    //PARA JACKSSON (ObjectMapper) DEBEMOS TENER SI O SI GETTERS EN LA CLASE USER
+    private void guardarComoJson(List<User> users, File file) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(file, users); // Convierte la lista de usuarios a JSON y la guarda en el archivo
+            System.out.println("hola");
+            showMessage("Éxito", "Lista de usuarios guardada en formato JSON.");
+        } catch (IOException e) {
+            showAlert("Error", "Hubo un error al guardar el archivo JSON.");
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarComoXml(List<User> users, File file) {
+        /*XmlMapper xmlMapper = new XmlMapper();
+        try {
+            xmlMapper.writeValue(file, users);
+            showMessage("Éxito", "Lista de usuarios guardada en formato XML.");
+        } catch (IOException e) {
+            showAlert("Error", "Hubo un error al guardar el archivo XML.");
+            e.printStackTrace();
+        }*/
+    }
+
+    private void guardarComoTxt(List<User> users, File file) {
+        try (FileWriter writer = new FileWriter(file)) {
+            for (User user : users) {
+                writer.write(user.toString() + System.lineSeparator()); // Escribe cada usuario en una línea
+            }
+            showMessage("Éxito", "Lista de usuarios guardada en formato TXT.");
+        } catch (IOException e) {
+            showAlert("Error", "Hubo un error al guardar el archivo TXT.");
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarComoBinario(List<User> users, File file) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+            out.writeObject(users); // Serializa la lista de usuarios en formato binario
+            showMessage("Éxito", "Lista de usuarios guardada en formato binario.");
+        } catch (IOException e) {
+            showAlert("Error", "Hubo un error al guardar el archivo binario.");
+            e.printStackTrace();
+        }
     }
 
 }

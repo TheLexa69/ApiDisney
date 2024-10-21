@@ -1,6 +1,8 @@
 package disneyapi;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private String username;
     private String role;
     private String id;
@@ -9,6 +11,18 @@ public class User {
         this.id = id;
         this.username = username;
         this.role = role;
+    }
+    
+    public String getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     @Override
