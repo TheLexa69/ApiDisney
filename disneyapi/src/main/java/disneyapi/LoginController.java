@@ -62,7 +62,7 @@ public class LoginController {
                 Stage stage = new Stage();
                 stage.setTitle(title);
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 600, 400));
+                stage.setScene(title == "Panel Administrador" ? new Scene(root, 600, 400) : new Scene(root, 1200, 600));
                 stage.show();
             } catch (IOException e) {
                 System.err.println("Error loading FXML: " + e.getMessage());
@@ -82,5 +82,4 @@ public class LoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
 }

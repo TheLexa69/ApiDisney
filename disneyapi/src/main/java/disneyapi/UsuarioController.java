@@ -1,11 +1,13 @@
 package disneyapi;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,8 +29,9 @@ public class UsuarioController {
     @FXML
     private Button btnUsuarioSalir;
 
+    
     @FXML
-    private ComboBox<String> cmboxUsuario;
+    private ComboBox<String> cmboxUsuarioGenerar;
 
     @FXML
     private ImageView imgPersonajeL;
@@ -66,6 +70,12 @@ public class UsuarioController {
     private AnchorPane usuarioPanel;
 
     @FXML
+    void onBtnClickGuardarBusquedaUsuario(ActionEvent event) {
+        createJSONFile();//CREADO CON JACKSON
+        createXMLFile();
+    }
+
+    @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
         seleccion();
 
@@ -84,8 +94,9 @@ public class UsuarioController {
     @FXML
     void initialize() {
         // Añadir elementos al ComboBox en el método de inicialización
-        cmboxUsuario.getItems().addAll("Personaje", "Pelicula");
-        cmboxUsuario.setValue("Personaje");
+        cmboxUsuarioGenerar.getItems().addAll("JSON","XML","binario","texto");
+        cmboxUsuarioGenerar.setValue("JSON");
+
 
     }
 
@@ -100,17 +111,24 @@ public class UsuarioController {
 
     public void seleccion() {
         // Obtener el valor seleccionado del ComboBox
-        String seleccion = cmboxUsuario.getValue();
-        if (seleccion.equals("Personaje")) {
+        String seleccion = txtIntroducirPersonaje.getText();
+        if (seleccion!=null) {
             // Lógica específica para "Personaje"
             personaje();
             lblPeliculasOutput.setText(Usuario.peliculas);
             lblSeriesOutput.setText(Usuario.series);
             lblVideojuegosOutput.setText(Usuario.juegos);
-        } else if (seleccion.equals("Pelicula")) {
-            // Lógica específica para "Pelicula"
-            System.out.println("Has seleccionado una Película.");
-        } else {
+            System.out.println(Usuario.imagen);
+            try{
+                Image image = new Image(Usuario.imagen);
+                imgPersonajeL.setImage(image);
+                imgPersonajeL.setPreserveRatio(true);
+
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        else {
             // Mostrar una alerta si las credenciales son incorrectas
             showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
@@ -130,5 +148,81 @@ public class UsuarioController {
         }
         Usuario.comprobarName(personajeIntroducido);
     }
+    
+    // public  void createJSONFile() {
+    //     // Crear un objeto JSON
+    //     JSONObject jsonObject = new JSONObject();
+    //     String pel = lblPeliculasOutput.getText();
+    //     // Agregar datos al objeto JSON
+    //     jsonObject.put("Peliculas", pel);
+    //     jsonObject.put("Series", lblSeriesOutput.getText());
+    //     jsonObject.put("Videojuegos",lblVideojuegosOutput.getText());
+
+        
+    //     // Escribir el objeto JSON en un archivo
+    //     try (FileWriter file = new FileWriter("data.json")) {
+    //         file.write(jsonObject.toString(4)); // 4 es el número de espacios para formatear
+    //         System.out.println("JSON file created successfully!");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+    public  void createJSONFile() {
+        // Crear un mapa con los datos especificados
+        String pel = lblPeliculasOutput.getText();
+        String ser = lblSeriesOutput.getText();
+        String jue = lblVideojuegosOutput.getText();
+        Map<String, String> data = new HashMap<>();
+        
+        // Asignar las claves y valores del JSON
+        data.put("Peliculas", pel);
+        data.put("Series", ser);
+        data.put("Videojuegos", jue);
+        
+
+        // Crear un objeto ObjectMapper de Jackson
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Escribir el mapa en un archivo JSON
+        try {
+            // Especificamos el nombre del archivo JSON
+            File jsonFile = new File("data.json");
+
+            // Escribir los datos en el archivo JSON
+            objectMapper.writeValue(jsonFile, data);
+
+            System.out.println("JSON file created successfully using Jackson!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // public void createXMLFile() {
+    //     // Crear un mapa con los datos especificados
+    //     String pel = lblPeliculasOutput.getText();
+    //     String ser = lblSeriesOutput.getText();
+    //     String jue = lblVideojuegosOutput.getText();
+    //     Map<String, String> data = new HashMap<>();
+        
+    //     // Asignar las claves y valores del XML
+    //     data.put("Series",pel);
+    //     data.put("Videojuegos",ser);
+    //     data.put("Peliculas", jue);
+
+    //     // Crear un objeto XmlMapper de Jackson
+    //     XmlMapper xmlMapper = new XmlMapper();
+
+    //     // Escribir el mapa en un archivo XML
+    //     try {
+    //         // Especificamos el nombre del archivo XML
+    //         File xmlFile = new File("data.xml");
+
+    //         // Escribir los datos en el archivo XML
+    //         xmlMapper.writeValue(xmlFile, data);
+
+    //         System.out.println("XML file created successfully using Jackson!");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

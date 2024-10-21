@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd79e6a7-5dba-4aa9-9aa8-8c4e59b71269" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/disneyapi/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/resources/disneyapi/disneyapi.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/MainApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/disneyapi.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/java/disneyapi/UsuarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/src/main/resources/disneyapi/usuarioscene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/src/main/resources/disneyapi/usuarioscene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/Usuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/UsuarioController.class" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/UsuarioController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/usuarioscene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/classes/disneyapi/usuarioscene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disneyapi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/disneyapi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +25,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2nW3osQ91Z7yHD6qwvFBvnIGWUW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -33,7 +37,7 @@
   "keyToString": {
     "Application.MainApp.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Diego",
+    "git-widget-placeholder": "Diego2",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/a22diegopc/Documents/GitHub/ApiDisney",
     "node.js.detected.package.eslint": "true",
@@ -61,6 +65,8 @@
       <option name="presentableId" value="Default" />
       <updated>1729075183062</updated>
       <workItem from="1729075184270" duration="1330000" />
+      <workItem from="1729509204074" duration="2000" />
+      <workItem from="1729510171139" duration="103000" />
     </task>
     <servers />
   </component>
