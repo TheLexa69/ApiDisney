@@ -12,8 +12,9 @@ module disneyapi {
     requires com.fasterxml.jackson.annotation;
     requires java.base;
     requires java.desktop;
+    requires com.google.gson;
 
-    opens disneyapi to javafx.fxml, com.fasterxml.jackson.databind;
+    opens disneyapi to javafx.fxml, com.fasterxml.jackson.databind, com.google.gson;
 
     exports disneyapi;
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 
@@ -220,6 +221,8 @@ public class AdminController {
 
     @FXML
     public void initialize() {
+        
+
         lblContra.setVisible(false);
         lblNombre.setVisible(false);
         txtNombre.setVisible(false);

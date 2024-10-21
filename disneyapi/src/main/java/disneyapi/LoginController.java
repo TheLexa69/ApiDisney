@@ -71,7 +71,7 @@ public class LoginController {
                 // Obtener el controlador de la nueva escena
                 if (rol.equals("administrador")) {
                     AdminController adminController = loader.getController();
-                    adminController.lblAdminName.setText("    Bienvenido: "+ usuario);
+                    adminController.lblAdminName.setText("    Bienvenido: " + usuario);
                     adminController.imgAdministrator.setImage(new Image(getClass().getResourceAsStream("/images/administrator.png")));
                 }
 
@@ -80,6 +80,9 @@ public class LoginController {
                 stage.setResizable(false);
                 stage.setScene(title == "Panel Administrador" ? new Scene(root, 600, 400) : new Scene(root, 800, 400));
                 stage.show();
+
+                stage = (Stage) btnLoginScene.getScene().getWindow();
+                stage.close();
             } catch (IOException e) {
                 System.err.println("Error loading FXML: " + e.getMessage());
                 e.printStackTrace();
