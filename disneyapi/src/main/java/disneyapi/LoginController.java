@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ public class LoginController {
     private ImageView imgLoginScene;
 
     @FXML
-    private TextField txtContraScene;
+    private PasswordField txtContraScene;
 
     @FXML
     private TextField txtUsuarioScene;
@@ -70,13 +71,14 @@ public class LoginController {
                 // Obtener el controlador de la nueva escena
                 if (rol.equals("administrador")) {
                     AdminController adminController = loader.getController();
-                    adminController.lblAdminName.setText(usuario); // Pasar el nombre del usuario
+                    adminController.lblAdminName.setText("    Bienvenido: "+ usuario);
+                    adminController.imgAdministrator.setImage(new Image(getClass().getResourceAsStream("/images/administrator.png")));
                 }
 
                 Stage stage = new Stage();
                 stage.setTitle(title);
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 600, 400));
+                stage.setScene(title == "Panel Administrador" ? new Scene(root, 600, 400) : new Scene(root, 800, 400));
                 stage.show();
             } catch (IOException e) {
                 System.err.println("Error loading FXML: " + e.getMessage());
