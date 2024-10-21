@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -46,6 +47,9 @@ public class AdminController {
     private Button btnCancelar;
 
     @FXML
+    private ComboBox<String> cmbRolAdminScene;
+
+    @FXML
     protected Label lblAdminName;
 
     @FXML
@@ -53,6 +57,9 @@ public class AdminController {
 
     @FXML
     private Label lblNombre;
+
+    @FXML
+    private Label lblRol;
 
     @FXML
     private AnchorPane pnlScrollPaneAdmin;
@@ -145,6 +152,9 @@ public class AdminController {
         setFieldsVisibleNuevoUsu(true);
         setFieldsVisibleListUsu(false);
         btnClicBorrarUsuPnl.setVisible(false);
+        ObservableList<String> rols = FXCollections.observableArrayList("administrador", "usuario");
+        cmbRolAdminScene.setItems(rols);
+        cmbRolAdminScene.setValue("administrador");
     }
 
     @FXML
@@ -158,13 +168,19 @@ public class AdminController {
     public void initialize() {
         lblContra.setVisible(false);
         lblNombre.setVisible(false);
+        txtNombre.setVisible(false);
+        txtContraseña.setVisible(false);
+        btnConfirmar.setVisible(false);
+        btnCancelar.setVisible(false);
+        lblRol.setVisible(false);
+        cmbRolAdminScene.setVisible(false);
     }
 
     @FXML
     void onBtnConfirmar(ActionEvent event) {
         String usuario = txtNombre.getText();
         String contra = txtContraseña.getText();
-        String rol = "administrador";
+        String rol = cmbRolAdminScene.getValue();
 
         try {
             if (usuario != null && contra != null && !usuario.isEmpty() && !contra.isEmpty()) {
@@ -199,6 +215,11 @@ public class AdminController {
         setFieldsVisibleNuevoUsu(false);
     }
 
+    @FXML
+    void onSelect(ActionEvent event) {
+
+    }
+
     // Método para ocultar o mostrar los campos de entrada
     private void setFieldsVisibleNuevoUsu(boolean visible) {
         txtNombre.setVisible(visible);
@@ -207,6 +228,8 @@ public class AdminController {
         btnCancelar.setVisible(visible);
         lblContra.setVisible(visible);
         lblNombre.setVisible(visible);
+        lblRol.setVisible(visible);
+        cmbRolAdminScene.setVisible(visible);
     }
 
     private void setFieldsVisibleListUsu(boolean visible) {
