@@ -20,6 +20,17 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    /**
+     * Muestra la escena principal de la aplicaci n con 3 personajes aleatorios
+     * de la API de Disney.
+     * 
+     * Primero verifica si existe la carpeta de credenciales y si no la crea.
+     * Luego verifica si existe el archivo JSON de la API de Disney y si no lo
+     * genera con los datos de la API. Por ltimo, muestra la escena principal con
+     * 3 personajes aleatorios de la API.
+     * 
+     * @param primaryStage el escenario principal de la aplicaci n
+     */
     @Override
     public void start(Stage primaryStage) {
         
@@ -121,6 +132,13 @@ public class MainApp extends Application {
         }
     }
 
+/**
+ * Reads JSON content from a file and extracts the array "data" as a JSONArray.
+ *
+ * @param file the file containing the JSON content
+ * @return the JSONArray extracted from the JSON content
+ * @throws Exception if there is an error reading the file or extracting the JSONArray
+ */
     public JSONArray getCharactersFromAPI(File file) throws Exception {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder jsonContent = new StringBuilder();
@@ -139,6 +157,11 @@ public class MainApp extends Application {
         }
     }
     
+    /**
+     * Starts the JavaFX application.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

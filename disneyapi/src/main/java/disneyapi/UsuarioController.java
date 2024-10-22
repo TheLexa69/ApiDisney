@@ -73,17 +73,35 @@ public class UsuarioController {
 
     private String usuario;
 
+    /**
+     * Guarda la busqueda actual en un archivo JSON
+     * 
+     * @param event el evento de click en el bot n de Guardar
+     */
     @FXML
     void onBtnClickGuardarBusquedaUsuario(ActionEvent event) {
         createJSONFile();// CREADO CON JACKSON
     }
 
+    /**
+     * Maneja el evento de click en el bot n de Buscar en la escena de Usuario.
+     * 
+     * Llama al m todo de selecci n de contenido y crea un archivo JSON con la
+     * informaci n actual.
+     * 
+     * @param event el evento de click en el bot n
+     */
     @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
         seleccion();
         // createJSONFile();
     }
 
+    /**
+     * Cierra la ventana actual y regresa al Login.
+     * 
+     * @param event el evento de click en el bot n de Salir
+     */
     @FXML
     void onBtnClickSalirUsuario(ActionEvent event) {
         // Obtener el escenario (Stage) actual
@@ -197,6 +215,17 @@ public class UsuarioController {
         }
     }
 
+
+    /**
+     * Maneja el evento de click en el botón "Buscar" en la escena de usuario.
+     * 
+     * Llama a personaje() para obtener la información del personaje seleccionado.
+     * Asigna los valores de las películas, series y videojuegos del personaje a los
+     * campos de texto. Asigna la imagen del personaje a un ImageView.
+     * 
+     * Si el campo de texto para introducir el personaje está vacío, muestra una
+     * alerta con un mensaje de error.
+     */
     public void seleccion() {
         // Obtener el valor seleccionado del ComboBox
         String seleccion = txtIntroducirPersonaje.getText();
@@ -215,9 +244,6 @@ public class UsuarioController {
             } catch (Exception e) {
                 System.out.println(e);
             }
-        } else {
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
 
@@ -236,10 +262,7 @@ public class UsuarioController {
         if (!personajeIntroducido.isEmpty()) {
             // Lógica para usar el texto introducido
             System.out.println("Personaje introducido: " + personajeIntroducido);
-        } else {
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
-        }
+        } 
         Usuario.comprobarName(personajeIntroducido);
     }
 
