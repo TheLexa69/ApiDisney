@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #8967B3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="disneyapi.LoginController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #624E88;">
+         <children>
+            <Label layoutX="114.0" layoutY="113.0" text="API">
+               <font>
+                  <Font name="Agency FB" size="72.0" />
+               </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="200.0" text="DISNEY">
+               <font>
+                  <Font name="Agency FB" size="72.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtUsuarioScene" layoutX="338.0" layoutY="207.0" prefHeight="39.0" prefWidth="230.0" promptText="usuario">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <PasswordField fx:id="txtContraScene" layoutX="338.0" layoutY="263.0" prefHeight="39.0" prefWidth="230.0" promptText="contraseña" />
+      <Button fx:id="btnLoginScene" layoutX="400.0" layoutY="316.0" mnemonicParsing="false" onAction="#onBtnClickLoginScene" prefHeight="28.0" prefWidth="105.0" style="-fx-background-color: #E6D9A2;" text="Acceder" />
+      <ImageView fx:id="imgLoginScene" fitHeight="150.0" fitWidth="200.0" layoutX="353.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

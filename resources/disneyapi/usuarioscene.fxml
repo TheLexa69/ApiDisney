@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="usuarioPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #8967B3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="disneyapi.UsuarioController">
+   <children>
+      <Label fx:id="lblUsuarioPanel" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <Label fx:id="lblIntroduzcaPersonaje" layoutX="11.0" layoutY="47.0" prefHeight="20.0" prefWidth="70.0" text="Búsqueda:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <TextField fx:id="txtIntroducirPersonaje" layoutX="80.0" layoutY="45.0" prefHeight="25.0" prefWidth="733.0" />
+      <Label fx:id="lblPelicula" layoutX="132.0" layoutY="92.0" prefHeight="17.0" prefWidth="66.0" text="Película" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="lblSeries" layoutX="393.0" layoutY="92.0" prefHeight="17.0" prefWidth="66.0" text="Series">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="lblVideojuegos" layoutX="658.0" layoutY="92.0" text="Videojuegos">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="lblVideojuegosOutput" layoutX="564.0" layoutY="108.0" prefHeight="486.0" prefWidth="251.0" style="-fx-background-color: #E4E0E1;" />
+      <Label fx:id="lblSeriesOutput" layoutX="300.0" layoutY="108.0" prefHeight="486.0" prefWidth="251.0" style="-fx-background-color: #E4E0E1;" />
+      <Label fx:id="lblPeliculasOutput" layoutX="39.0" layoutY="108.0" prefHeight="486.0" prefWidth="251.0" style="-fx-background-color: #E4E0E1;" />
+      <ImageView fx:id="imgPersonajeL" fitHeight="290.0" fitWidth="317.0" layoutX="877.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnUsuarioBuscar" layoutX="866.0" layoutY="514.0" mnemonicParsing="false" onAction="#onBtnClickBuscarUsuario" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #E6D9A2;" text="Buscar">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font></Button>
+      <Button fx:id="btnUsuarioSalir" layoutX="1036.0" layoutY="514.0" mnemonicParsing="false" onAction="#onBtnClickSalirUsuario" prefHeight="54.0" prefWidth="150.0" style="-fx-background-color: #E6D9A2;" text="Salir">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblLogo" layoutX="997.0" layoutY="23.0" prefHeight="49.0" prefWidth="186.0" text="API DISNEY">
+         <font>
+            <Font name="System Bold" size="33.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnUsuarioCache" layoutX="866.0" layoutY="451.0" mnemonicParsing="false" onAction="#onBtnClickCacheUsuario" prefHeight="54.0" prefWidth="317.0" style="-fx-background-color: #E6D9A2;" text="Cache">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
