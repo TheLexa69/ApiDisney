@@ -7,6 +7,9 @@ import java.nio.file.Paths;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Usuario {
     public static String peliculas;
     public static String series;
@@ -82,13 +85,19 @@ public class Usuario {
             }
 
             if (!encontrado) {
-                System.out.println("Nombre no encontrado: " + nombreBuscado);
+                showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+    private static void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 }

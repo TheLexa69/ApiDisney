@@ -68,17 +68,35 @@ public class UsuarioController {
     @FXML
     private AnchorPane usuarioPanel;
 
+    /**
+     * Guarda la busqueda actual en un archivo JSON
+     * 
+     * @param event el evento de click en el bot n de Guardar
+     */
     @FXML
     void onBtnClickGuardarBusquedaUsuario(ActionEvent event) {
         createJSONFile();// CREADO CON JACKSON
     }
 
+    /**
+     * Maneja el evento de click en el bot n de Buscar en la escena de Usuario.
+     * 
+     * Llama al m todo de selecci n de contenido y crea un archivo JSON con la
+     * informaci n actual.
+     * 
+     * @param event el evento de click en el bot n
+     */
     @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
         seleccion();
         createJSONFile();
     }
 
+    /**
+     * Cierra la ventana actual y regresa al Login.
+     * 
+     * @param event el evento de click en el bot n de Salir
+     */
     @FXML
     void onBtnClickSalirUsuario(ActionEvent event) {
         // Obtener el escenario (Stage) actual
@@ -91,20 +109,39 @@ public class UsuarioController {
 
     private String usuario;
 
+    /**
+     * Establece el nombre del usuario actual en el panel de usuario y en la
+     * etiqueta correspondiente.
+     * 
+     * @param usuario el nombre del usuario
+     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
         lblUsuarioPanel.setText(usuario);
     }
 
+    /**
+     * Comprueba si el usuario actual tiene una versi n guardada en la cache
+     * y la muestra en una ventana emergente. Si no hay versi n guardada,
+     * muestra un mensaje de error.
+     * 
+     * @param event el evento de click en el bot n
+     */
     @FXML
     void onBtnClickCacheUsuario(ActionEvent event) {
         comprobarUsuario();
     }
 
+    /**
+     * Inicializa la escena de usuario.
+     * 
+     * Se llama autom aticamente al cargar la escena.
+     * 
+     * No hace nada actualmente, pero se puede utilizar para establecer valores
+     * predeterminados o para realizar otras acciones de inicializaci n.
+     */
     @FXML
-    void initialize() {
-
-    }
+    void initialize() {}
 
     // Método para mostrar una alerta
     private void showAlert(String title, String message) {
@@ -115,6 +152,17 @@ public class UsuarioController {
         alert.showAndWait();
     }
 
+
+    /**
+     * Maneja el evento de click en el botón "Buscar" en la escena de usuario.
+     * 
+     * Llama a personaje() para obtener la información del personaje seleccionado.
+     * Asigna los valores de las películas, series y videojuegos del personaje a los
+     * campos de texto. Asigna la imagen del personaje a un ImageView.
+     * 
+     * Si el campo de texto para introducir el personaje está vacío, muestra una
+     * alerta con un mensaje de error.
+     */
     public void seleccion() {
         // Obtener el valor seleccionado del ComboBox
         String seleccion = txtIntroducirPersonaje.getText();
@@ -133,12 +181,15 @@ public class UsuarioController {
             } catch (Exception e) {
                 System.out.println(e);
             }
-        } else {
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
 
+
+    /**
+     * Muestra en consola el personaje que se ha introducido y verifica si se encuentra
+     * en la base de datos. Si no se encuentra, muestra una alerta con un mensaje de
+     * error.
+     */
     public void personaje() {
 
         String personajeIntroducido = txtIntroducirPersonaje.getText();
@@ -147,13 +198,19 @@ public class UsuarioController {
         if (!personajeIntroducido.isEmpty()) {
             // Lógica para usar el texto introducido
             System.out.println("Personaje introducido: " + personajeIntroducido);
-        } else {
-            // Mostrar una alerta si las credenciales son incorrectas
-            showAlert("ERROR", "Lo que has introducido no esta en la base de datos");
-        }
+        } 
         Usuario.comprobarName(personajeIntroducido);
     }
 
+    /**
+     * Crea un archivo JSON con los datos del usuario y personaje
+     * introducidos en la interfaz gráfica.
+     * 
+     * Utiliza la biblioteca Jackson para serializar el mapa de datos
+     * en un archivo JSON.
+     * 
+     * @throws IOException si hay un error al escribir el archivo JSON
+     */
     public void createJSONFile() {
         // Crear un mapa con los datos especificados
         String pel = lblPeliculasOutput.getText();
@@ -186,6 +243,10 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Comprueba si el usuario ha buscado previamente un personaje. Si es
+     * así, muestra un mensaje con el personaje buscado.
+     */
     public void comprobarUsuario() {
         String usuarioPanel = lblUsuarioPanel.getText();
         File jsonFile = new File("disneyapi\\src\\main\\resources\\disneyapi\\" + usuarioPanel + ".json");
