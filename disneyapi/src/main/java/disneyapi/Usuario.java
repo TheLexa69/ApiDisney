@@ -12,6 +12,14 @@ public class Usuario {
     public static String series;
     public static String juegos;
     public static String imagen;
+    
+    /**
+     * Comprueba si el nombre de personaje pasado como par metro existe en el archivo JSON
+     * y, si es as , muestra los films, series y juegos asociados a ese personaje.
+     * Si no se encuentra el personaje, muestra un mensaje de error.
+     *
+     * @param nombreBuscado nombre del personaje a buscar
+     */
     public static void comprobarName(String nombreBuscado) {
         try {
             // Lee el contenido del archivo JSON
