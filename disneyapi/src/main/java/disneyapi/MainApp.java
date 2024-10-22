@@ -33,7 +33,7 @@ public class MainApp extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        
+
         // ---- VERIFICAMOS SI EXISTE LA CARPETA DE CREDENCIALES ----
         CredentialsManagement credentialsManagement = new CredentialsManagement();
         String urlCredentials = "disneyapi/src/main/resources/data/credentials.xml";
@@ -132,13 +132,13 @@ public class MainApp extends Application {
         }
     }
 
-/**
- * Reads JSON content from a file and extracts the array "data" as a JSONArray.
- *
- * @param file the file containing the JSON content
- * @return the JSONArray extracted from the JSON content
- * @throws Exception if there is an error reading the file or extracting the JSONArray
- */
+    /**
+     * Lee el archivo JSON y extrae la información de los personajes.
+     *
+     * @param file el archivo JSON
+     * @return el json con la información de los personajes
+     * @throws Exception si ocurre algun error al leer el archivo
+     */
     public JSONArray getCharactersFromAPI(File file) throws Exception {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder jsonContent = new StringBuilder();
@@ -147,18 +147,17 @@ public class MainApp extends Application {
                 jsonContent.append(line);
             }
 
-            // Convert the JSON to a JSONObject and extract the array "data"
             JSONObject json = new JSONObject(jsonContent.toString());
             return json.getJSONArray("data");
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw e; // Handle the exception as needed
+            throw e;
         }
     }
-    
+
     /**
-     * Starts the JavaFX application.
+     * Lanzamos la aplicación.
      *
      * @param args the command line arguments
      */

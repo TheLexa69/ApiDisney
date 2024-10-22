@@ -136,38 +136,37 @@ public class UsuarioController {
             cacheDir.mkdirs();
         }
 
-        // Ruta del archivo de caché
         File jsonFile = new File(cacheDir, "disneyapi.json");
         createJSONFile();
         // Verificar si el archivo de caché existe
         if (jsonFile.exists()) {
-            // Mostrar un mensaje de alerta al usuario
+            // Mostramos un mensaje de alerta al usuario
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Caché Encontrada");
             alert.setHeaderText("Tienes búsquedas anteriores, ¿quieres recuperarlas?");
             alert.setContentText("Si recuperas los datos, se sobrescribirán los actuales.");
 
-            // Agregar botones para confirmar o cancelar
+            // Agregamos botones para confirmar o cancelar
             alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.YES) {
-                // Crear un objeto ObjectMapper de Jackson
+                // Creamos un objeto ObjectMapper de Jackson
                 ObjectMapper objectMapper = new ObjectMapper();
                 try {
-                    // Leer el archivo JSON y convertirlo a un mapa
+                    // Leemos el archivo JSON y convertirlo a un mapa
                     Map<String, String> data = objectMapper.readValue(jsonFile,
                             new TypeReference<Map<String, String>>() {
                             });
 
-                    // Recuperar datos y llenar los cuadros
+                    // Recuperamos datos y llenar los cuadros
                     lblPeliculasOutput.setText(data.get("Peliculas"));
                     lblSeriesOutput.setText(data.get("Series"));
                     lblVideojuegosOutput.setText(data.get("Videojuegos"));
                     txtIntroducirPersonaje.setText(data.get("Personaje"));
 
-                    // Cargar la imagen si está disponible
-                    String imagenUrl = data.get("Imagen"); // Asegúrate de que almacenes la URL en el caché
+                    // Cargamos la imagen si está disponible
+                    String imagenUrl = data.get("Imagen");
                     if (imagenUrl != null && !imagenUrl.isEmpty()) {
                         Image image = new Image(imagenUrl);
                         imgPersonajeL.setImage(image);
@@ -179,7 +178,6 @@ public class UsuarioController {
                 }
             }
         } else {
-            // Si no hay caché, ejecutar la lógica de comprobarUsuario
             comprobarUsuario();
         }
     }
@@ -198,18 +196,16 @@ public class UsuarioController {
 
         // Verificar si el archivo de caché existe
         if (jsonFile.exists()) {
-            // Mostrar un mensaje de confirmación al usuario
+            // Mostramos un mensaje de confirmación al usuario
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Caché Encontrada");
             alert.setHeaderText("Tienes búsquedas anteriores, ¿quieres recuperarlas?");
             alert.setContentText("Si recuperas los datos, se sobrescribirán los actuales.");
 
-            // Agregar botones para confirmar o cancelar
             alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.YES) {
-                // Si el usuario acepta, recuperar los datos
                 recuperarDatosDesdeCache();
             }
         }
@@ -267,18 +263,15 @@ public class UsuarioController {
     }
 
     /**
-     * 
-     * 
-     * 
-     * Se utiliza un objeto ObjectMapper de Jackson para escribir el mapa en el arc
-     * ivo JSON.
+
+     * Se utiliza un objeto ObjectMapper de Jackson para escribir el mapa en el archivo JSON.
      * Si el directorio de caché no existe, se crea automáticamente.
      * 
      * Muestra un mensaje de éxito si los datos se guardan correctam
      * En caso de error al guardar en caché, se muestra un mensaje de error.
      */
     public void createJSONFile() {
-        // Crear un mapa con los datos especificados
+        // Creamos un mapa con los datos especificados
         String pel = lblPeliculasOutput.getText();
         String ser = lblSeriesOutput.getText();
         String jue = lblVideojuegosOutput.getText();
@@ -286,32 +279,32 @@ public class UsuarioController {
         String per = txtIntroducirPersonaje.getText();
         Map<String, String> data = new HashMap<>();
 
-        // Asignar las claves y valores del JSON
+        // Asignamos las claves y valores del JSON
         data.put("Usuario", usu);
         data.put("Peliculas", pel);
         data.put("Series", ser);
         data.put("Videojuegos", jue);
         data.put("Personaje", per);
-        data.put("Imagen", Usuario.imagen); // Asegúrate de que se guarde la imagen si es necesario
+        data.put("Imagen", Usuario.imagen);
 
-        // Crear un objeto ObjectMapper de Jackson
+        // Creamos un objeto ObjectMapper de Jackson
         ObjectMapper objectMapper = new ObjectMapper();
 
-        // Escribir el mapa en un archivo JSON
+        // Escribimos el mapa en un archivo JSON
         try {
             File cacheDir = new File("disneyapi/src/main/resources/data/disneyapi/disney_cache");
             if (!cacheDir.exists()) {
-                cacheDir.mkdirs(); // Crea la carpeta si no existe
+                cacheDir.mkdirs();
             }
 
-            File jsonFile = new File(cacheDir, "disneyapi.json"); // Guardar como disneyapi.json
+            File jsonFile = new File(cacheDir, "disneyapi.json");
 
-            // Escribir los datos en el archivo JSON
+            // Escribimos los datos en el archivo JSON
             objectMapper.writeValue(jsonFile, data);
 
             System.out.println("JSON file created successfully in " + jsonFile.getAbsolutePath());
 
-            // Mostrar mensaje de confirmación
+            // Mostramos mensaje de confirmación
             showAlert("Éxito", "Los datos se han guardado en caché.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -331,7 +324,7 @@ public class UsuarioController {
         ObjectMapper objectMapper = new ObjectMapper();
         if (jsonFile.exists()) {
             try {
-                // Leer el archivo JSON y convertirlo a un mapa
+                // Leemos el archivo JSON y convertimos a un mapa
                 Map<String, String> data = objectMapper.readValue(jsonFile, new TypeReference<Map<String, String>>() {
                 });
 

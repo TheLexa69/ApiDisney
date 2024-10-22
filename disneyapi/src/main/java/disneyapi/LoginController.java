@@ -30,12 +30,10 @@ public class LoginController {
     @FXML
     private TextField txtUsuarioScene;
 
-    // Instanciar la clase de manejo de credenciales
     private CredentialsManagement credentialsManagement = new CredentialsManagement();
 
     @FXML
     public void initialize() {
-        // Cargamos la imagen de inicio de sesión
         Image image = new Image(getClass().getResourceAsStream("/images/disney.png"));
         imgLoginScene.setImage(image);
         imgLoginScene.setPreserveRatio(true);
@@ -57,6 +55,17 @@ public class LoginController {
         return user;
     }
 
+    /**
+     * Maneja el evento de clic en el botón de Iniciar sesión en la escena de Login.
+     * 
+     * Recupera el nombre de usuario y la contraseña ingresados, y los verifica
+     * utilizando la función getUserRole() de la clase CredentialsManagement.
+     * Si el inicio de sesión es exitoso, carga la escena correspondiente al rol
+     * del usuario (administrador o usuario) y la muestra en una nueva ventana.
+     * Si el inicio de sesión falla, muestra una alerta con un mensaje de error.
+     * 
+     * @param event el evento de clic en el botón de Iniciar sesión
+     */
     @FXML
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();
@@ -74,7 +83,6 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
                 Parent root = loader.load();
 
-                // Obtener el controlador de la nueva escena
                 if (rol.equals("administrador")) {
                     AdminController adminController = loader.getController();
                     adminController.lblAdminName.setText("    Bienvenido: " + usuario);
@@ -82,7 +90,7 @@ public class LoginController {
                             .setImage(new Image(getClass().getResourceAsStream("/images/administrator.png")));
                 } else if (rol.equals("usuario")) {
                     UsuarioController usuarioController = loader.getController();
-                    usuarioController.setUsuario("    Bienvenido: " +usuario);
+                    usuarioController.setUsuario("    Bienvenido: " + usuario);
                 }
 
                 Stage stage = new Stage();
@@ -98,7 +106,6 @@ public class LoginController {
                 e.printStackTrace();
             }
         } else {
-            // Mostrar alerta si las credenciales son incorrectas
             showAlert("Login Fallido", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
