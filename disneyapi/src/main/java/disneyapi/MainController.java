@@ -90,13 +90,10 @@ public class MainController {
         txtAreaNL2.setEditable(false);
         txtAreaNL3.setEditable(false);
 
-        // Evitar que el TextArea pueda ser enfocado (opcional, si no quieres que se
-        // pueda seleccionar el texto)
         txtAreaNL1.setFocusTraversable(false);
         txtAreaNL2.setFocusTraversable(false);
         txtAreaNL3.setFocusTraversable(false);
 
-        // Aquí puedes cargar los personajes aleatorios como lo definimos anteriormente
         try {
             loadRandomCharacters();
         } catch (Exception e) {
@@ -111,8 +108,7 @@ public class MainController {
     private void loadRandomCharacters() throws Exception {
         // Leer el archivo JSON (asumiendo que está en resources/disneyapi.json)
         // Gson gson = new Gson();
-        Reader reader = new FileReader("disneyapi/src/main/resources/disneyapi/disneyapi.json"); // Ruta del archivo
-                                                                                                 // JSON
+        Reader reader = new FileReader("disneyapi/src/main/resources/disneyapi/disneyapi.json");
         JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 
         JsonArray dataArray = jsonObject.getAsJsonArray("data");

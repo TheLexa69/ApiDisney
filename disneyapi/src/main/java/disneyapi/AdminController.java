@@ -149,17 +149,17 @@ public class AdminController {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Guardar lista de usuarios");
 
-            // Agregar extensiones de archivos permitidos
+            // Agregamos extensiones de archivos permitidos
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Archivo de texto (*.txt)", "*.txt"),
                     new FileChooser.ExtensionFilter("Archivo binario (*.bin)", "*.bin"),
                     new FileChooser.ExtensionFilter("Archivo JSON (*.json)", "*.json"),
                     new FileChooser.ExtensionFilter("Archivo XML (*.xml)", "*.xml"));
 
-            // Mostrar el diálogo para guardar archivo
+            // Mostramos el diálogo para guardar archivo
             File file = fileChooser.showSaveDialog(btnGuardarLista.getScene().getWindow());
             if (file != null) {
-                // Obtener la extensión seleccionada
+                // Obtenemos la extensión seleccionada
                 String filePath = file.getAbsolutePath();
                 if (filePath.endsWith(".txt")) {
                     guardarComoTxt(users, file);
@@ -168,7 +168,7 @@ public class AdminController {
                 } else if (filePath.endsWith(".json")) {
                     guardarComoJson(users, file); // Usa Jackson para JSON
                 } else if (filePath.endsWith(".xml")) {
-                    guardarComoXml(users, file); // Usa Jackson para XML
+                    guardarComoXml(users, file);
                 }
             }
         } catch (Exception e) {
@@ -201,15 +201,14 @@ public class AdminController {
             List<User> users = AdminModel.listUsers();
             if (users != null && !users.isEmpty()) {
                 for (User user : users) {
-                    listaUsuarios.add(user.toString()); // Agrega cada usuario a la lista observable
+                    listaUsuarios.add(user.toString());
                 }
-                lstViewAdmin1.setItems(listaUsuarios); // Establece la lista en el ListView
+                lstViewAdmin1.setItems(listaUsuarios);
 
                 // Si hay usuarios en la lista, muestra el botón de eliminar
                 btnClicBorrarUsuPnl.setVisible(true);
                 System.out.println(users.toString());
             } else {
-                // Si no hay usuarios, puedes ocultar el botón o mostrar un mensaje
                 btnClicBorrarUsuPnl.setVisible(false);
                 showAlert("Información", "No hay usuarios disponibles.");
             }
@@ -286,7 +285,6 @@ public class AdminController {
      */
     @FXML
     void onBtnSalirAdmin(ActionEvent event) {
-        // Lógica para salir de la aplicación o cerrar la ventana
         Stage stage = (Stage) btnAdminSalir.getScene().getWindow();
         stage.close();
     }
@@ -452,10 +450,8 @@ public class AdminController {
         alert.setHeaderText(null);
         alert.setContentText(message);
 
-        // Obtener la respuesta del usuario
         Optional<ButtonType> result = alert.showAndWait();
 
-        // Verificar si el usuario seleccionó ACEPTAR
         return result.isPresent() && result.get() == ButtonType.OK;
     }
 
@@ -471,7 +467,7 @@ public class AdminController {
         // PARA JACKSSON (ObjectMapper) DEBEMOS TENER SI O SI GETTERS EN LA CLASE USER
         ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue(file, users); // Convierte la lista de usuarios a JSON y la guarda en el archivo
+            mapper.writeValue(file, users);
             System.out.println("hola");
             showMessage("Éxito", "Lista de usuarios guardada en formato JSON.");
         } catch (IOException e) {
@@ -543,7 +539,7 @@ public class AdminController {
     private void guardarComoTxt(List<User> users, File file) {
         try (FileWriter writer = new FileWriter(file)) {
             for (User user : users) {
-                writer.write(user.toString() + System.lineSeparator()); // Escribe cada usuario en una línea
+                writer.write(user.toString() + System.lineSeparator()); 
             }
             showMessage("Éxito", "Lista de usuarios guardada en formato TXT.");
         } catch (IOException e) {
@@ -563,7 +559,7 @@ public class AdminController {
      */
     private void guardarComoBinario(List<User> users, File file) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            out.writeObject(users); // Serializa la lista de usuarios en formato binario
+            out.writeObject(users);
             showMessage("Éxito", "Lista de usuarios guardada en formato binario.");
         } catch (IOException e) {
             showAlert("Error", "Hubo un error al guardar el archivo binario.");

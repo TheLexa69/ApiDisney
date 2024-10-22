@@ -82,10 +82,15 @@ public class AdminModel {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // Indica que hubo un error
+            return false;
         }
     }
 
+    /**
+     * Elimina un usuario del archivo de credenciales.
+     * 
+     * @param username el nombre de usuario a eliminar
+     */
     public static void deleteUser(String username) {
         File file = new File("disneyapi/src/main/resources/data/credentials.xml");
         try {
@@ -116,6 +121,12 @@ public class AdminModel {
         }
     }
 
+    /**
+     * Elimina un usuario del archivo de credenciales por su ID.
+     * 
+     * @param userId el ID del usuario a eliminar
+     * @throws Exception si ocurre un error al procesar el archivo XML
+     */
     public static void removeUserById(String userId) throws Exception {
         File file = new File("disneyapi/src/main/resources/data/credentials.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -124,21 +135,19 @@ public class AdminModel {
         doc.getDocumentElement().normalize();
 
         NodeList userList = doc.getElementsByTagName("user");
-        boolean userFound = false; // Para verificar si el usuario fue encontrado
+        boolean userFound = false;
 
         for (int i = 0; i < userList.getLength(); i++) {
             Node userNode = userList.item(i);
             Element userElement = (Element) userNode;
 
-            // Obtener el ID del usuario desde el elemento <id>
             String idInXml = userElement.getElementsByTagName("id").item(0).getTextContent();
-            System.out.println("Verificando ID: " + idInXml); // Mensaje de depuración
+            System.out.println("Verificando ID: " + idInXml);
 
             if (idInXml.equals(userId)) {
-                // Eliminar el nodo del usuario
                 userNode.getParentNode().removeChild(userNode);
-                userFound = true; // Marcamos que encontramos el usuario
-                System.out.println("Usuario con ID " + userId + " eliminado."); // Mensaje de éxito
+                userFound = true;
+                System.out.println("Usuario con ID " + userId + " eliminado.");
                 break;
             }
         }
@@ -147,7 +156,7 @@ public class AdminModel {
             System.out.println("No se encontró el usuario con ID " + userId + "."); // Mensaje de no encontrado
         }
 
-        // Guardar los cambios de vuelta en el archivo
+        // Guardamos los cambios de vuelta en el archivo
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
@@ -155,6 +164,13 @@ public class AdminModel {
         transformer.transform(source, result);
     }
 
+    /**
+     * Recibe una lista de usuarios y los almacena en un archivo XML.
+     * 
+     * @return una lista de usuarios almacenados en un archivo XML
+     * @throws Exception si ocurre un error al procesar el archivo XML lanza una
+     *                   excepción
+     */
     public static List<User> listUsers() throws Exception {
         List<User> users = new ArrayList<>();
         try {

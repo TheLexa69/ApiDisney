@@ -19,7 +19,6 @@ import org.w3c.dom.NodeList;
 
 public class CredentialsManagement {
 
-
     /**
      * Hashea una contraseña dada utilizando el algoritmo SHA-256.
      * 
@@ -42,18 +41,23 @@ public class CredentialsManagement {
     }
 
     /**
-     * Generates a credentials XML file with user information.
+     * Genera un archivo XML de credenciales con información del usuario.
      * 
-     * This function creates an XML document with user data like username, password,
-     * and role. It then saves the XML file containing the user information.
+     * Esta función crea un documento XML con datos del usuario como nombre de
+     * usuario,
+     * contraseña y rol. Luego guarda el archivo XML que contiene la información del
+     * usuario.
      * 
-     * The XML structure includes a root element "groupUsers" with multiple "user"
-     * elements. Each "user" element contains child elements for username, password,
-     * and role. The usernames are "profe" and "estudiante", and the passwords are
-     * hashed using the hashPassword function.
+     * La estructura XML incluye un elemento raíz "groupUsers" con múltiples
+     * elementos "user".
+     * Cada elemento "user" contiene elementos secundarios para nombre de usuario,
+     * contraseña
+     * y rol. Los nombres de usuario son "profe" y "estudiante", y las contraseñas
+     * están
+     * hashadas utilizando la función hashPassword.
      * 
-     * @throws Exception if there is an error during the XML creation or file saving
-     *                   process.
+     * @throws Exception si hay un error durante el proceso de creación del XML o
+     *                   guardado del archivo.
      */
     public void generateCredentials() {
         String filePath = "disneyapi/src/main/resources/data/credentials.xml";
