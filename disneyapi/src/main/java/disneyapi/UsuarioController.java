@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+//import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,7 +72,7 @@ public class UsuarioController {
     @FXML
     void onBtnClickGuardarBusquedaUsuario(ActionEvent event) {
         createJSONFile();//CREADO CON JACKSON
-        createXMLFile();
+        //createXMLFile();
     }
 
     @FXML
