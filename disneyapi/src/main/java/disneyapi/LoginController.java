@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +25,7 @@ public class LoginController {
     private ImageView imgLoginScene;
 
     @FXML
-    private TextField txtContraScene;
+    private PasswordField txtContraScene;
 
     @FXML
     private TextField txtUsuarioScene;
@@ -34,12 +35,23 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Cargar la imagen de inicio de sesión
+        // Cargamos la imagen de inicio de sesión
         Image image = new Image(getClass().getResourceAsStream("/images/disney.png"));
         imgLoginScene.setImage(image);
         imgLoginScene.setPreserveRatio(true);
     }
 
+    /**
+     * Maneja el evento de click en el botón de Login en la escena de Login.
+     * 
+     * Verifica si el usuario y contraseña ingresados son correctos mediante la
+     * función getUserRole() de la clase CredentialsManagement. Si el login es
+     * exitoso, crea una instancia de la escena correspondiente al rol del usuario
+     * (administrador o usuario) y la muestra en una ventana nueva. Si el login
+     * falla, muestra una alerta con un mensaje de error.
+     * 
+     * @param event el evento de click en el botón de Login
+     */
     @FXML
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();
@@ -47,34 +59,47 @@ public class LoginController {
 
         System.out.println("Usuario: " + usuario + ", Contraseña: " + contra);
 
-        // Verificar credenciales con la función readCredentials
-        boolean isLoginSuccessful = credentialsManagement.readCredentials(usuario, contra);
+        String rol = credentialsManagement.getUserRole(usuario, contra);
 
-        if (isLoginSuccessful) {
-            // Si el login es exitoso, determinar el rol y cargar la escena correspondiente
-            String rol = usuario.equals("profe") ? "administrador" : "usuario"; // Basado en el nombre de usuario
+        if (rol != null) { // Si el login es exitoso
             String fxmlFile = rol.equals("administrador") ? "adminscene.fxml" : "usuarioscene.fxml";
             String title = rol.equals("administrador") ? "Panel Administrador" : "Panel Usuario";
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
                 Parent root = loader.load();
+
+                // Obtener el controlador de la nueva escena
+                if (rol.equals("administrador")) {
+                    AdminController adminController = loader.getController();
+                    adminController.lblAdminName.setText("    Bienvenido: " + usuario);
+                    adminController.imgAdministrator.setImage(new Image(getClass().getResourceAsStream("/images/administrator.png")));
+                }
+
                 Stage stage = new Stage();
                 stage.setTitle(title);
                 stage.setResizable(false);
                 stage.setScene(title == "Panel Administrador" ? new Scene(root, 600, 400) : new Scene(root, 1200, 600));
                 stage.show();
+
+                stage = (Stage) btnLoginScene.getScene().getWindow();
+                stage.close();
             } catch (IOException e) {
                 System.err.println("Error loading FXML: " + e.getMessage());
                 e.printStackTrace();
             }
         } else {
-            // Mostrar una alerta si las credenciales son incorrectas
+            // Mostrar alerta si las credenciales son incorrectas
             showAlert("Login Fallido", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
     }
 
-    // Método para mostrar una alerta
+    /**
+     * Muestra una alerta con título y mensaje de error.
+     * 
+     * @param title   título de la alerta
+     * @param message mensaje de error que se muestra en la alerta
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
