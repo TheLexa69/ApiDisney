@@ -15,9 +15,10 @@ public class Usuario {
     public static String series;
     public static String juegos;
     public static String imagen;
-    
+
     /**
-     * Comprueba si el nombre de personaje pasado como par metro existe en el archivo JSON
+     * Comprueba si el nombre de personaje pasado como par metro existe en el
+     * archivo JSON
      * y, si es as , muestra los films, series y juegos asociados a ese personaje.
      * Si no se encuentra el personaje, muestra un mensaje de error.
      *
@@ -25,6 +26,11 @@ public class Usuario {
      */
     public static void comprobarName(String nombreBuscado) {
         try {
+
+            peliculas = "";
+            series = "";
+            juegos = "";
+            imagen = "";
             // Lee el contenido del archivo JSON
             String jsonString = new String(
                     Files.readAllBytes(Paths.get("disneyapi\\src\\main\\resources\\disneyapi\\disneyapi.json")));
@@ -71,12 +77,12 @@ public class Usuario {
                     }
                     // Imprime cada juego en el array
                     StringBuilder juegosString = new StringBuilder();
-                    for (int j = 0; j <juegosArray.length(); j++) {
+                    for (int j = 0; j < juegosArray.length(); j++) {
                         juegosString.append(juegosArray.getString(j));
                         juegos = " ";
                         juegos = juegosString.toString();
                         if (j < juegosArray.length() - 1) {
-                            juegosString.append(", ");  // Agrega una coma si hay más juegos
+                            juegosString.append(", "); // Agrega una coma si hay más juegos
                             juegosString.append("\n");
                         }
                     }
@@ -100,6 +106,7 @@ public class Usuario {
             e.printStackTrace();
         }
     }
+
     private static void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
