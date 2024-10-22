@@ -52,6 +52,10 @@ public class LoginController {
      * 
      * @param event el evento de click en el botón de Login
      */
+    public String getUsuarioText() {
+        String user=txtUsuarioScene.getText();
+        return user;
+    }
     @FXML
     void onBtnClickLoginScene(ActionEvent event) {
         String usuario = txtUsuarioScene.getText();
@@ -74,6 +78,9 @@ public class LoginController {
                     AdminController adminController = loader.getController();
                     adminController.lblAdminName.setText("    Bienvenido: " + usuario);
                     adminController.imgAdministrator.setImage(new Image(getClass().getResourceAsStream("/images/administrator.png")));
+                }else if (rol.equals("usuario")) {
+                    UsuarioController usuarioController = loader.getController();
+                    usuarioController.setUsuario(usuario); // Pasar el usuario al controlador
                 }
 
                 Stage stage = new Stage();

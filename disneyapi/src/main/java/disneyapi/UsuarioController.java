@@ -29,9 +29,8 @@ public class UsuarioController {
     @FXML
     private Button btnUsuarioSalir;
 
-    
     @FXML
-    private ComboBox<String> cmboxUsuarioGenerar;
+    private Button btnUsuarioCache;
 
     @FXML
     private ImageView imgPersonajeL;
@@ -55,7 +54,7 @@ public class UsuarioController {
     private Label lblSeriesOutput;
 
     @FXML
-    private Label lblUsuarioPanel;
+    Label lblUsuarioPanel;
 
     @FXML
     private Label lblVideojuegos;
@@ -71,14 +70,13 @@ public class UsuarioController {
 
     @FXML
     void onBtnClickGuardarBusquedaUsuario(ActionEvent event) {
-        createJSONFile();//CREADO CON JACKSON
-        //createXMLFile();
+        createJSONFile();// CREADO CON JACKSON
     }
 
     @FXML
     void onBtnClickBuscarUsuario(ActionEvent event) {
         seleccion();
-
+        createJSONFile();
     }
 
     @FXML
@@ -91,12 +89,20 @@ public class UsuarioController {
 
     }
 
+    private String usuario;
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+        lblUsuarioPanel.setText(usuario);
+    }
+
+    @FXML
+    void onBtnClickCacheUsuario(ActionEvent event) {
+        comprobarUsuario();
+    }
+
     @FXML
     void initialize() {
-        // Añadir elementos al ComboBox en el método de inicialización
-        cmboxUsuarioGenerar.getItems().addAll("JSON","XML","binario","texto");
-        cmboxUsuarioGenerar.setValue("JSON");
-
 
     }
 
@@ -112,23 +118,22 @@ public class UsuarioController {
     public void seleccion() {
         // Obtener el valor seleccionado del ComboBox
         String seleccion = txtIntroducirPersonaje.getText();
-        if (seleccion!=null) {
+        if (seleccion != null) {
             // Lógica específica para "Personaje"
             personaje();
             lblPeliculasOutput.setText(Usuario.peliculas);
             lblSeriesOutput.setText(Usuario.series);
             lblVideojuegosOutput.setText(Usuario.juegos);
             System.out.println(Usuario.imagen);
-            try{
+            try {
                 Image image = new Image(Usuario.imagen);
                 imgPersonajeL.setImage(image);
                 imgPersonajeL.setPreserveRatio(true);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
-        }
-        else {
+        } else {
             // Mostrar una alerta si las credenciales son incorrectas
             showAlert("Vacio", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
         }
@@ -148,45 +153,29 @@ public class UsuarioController {
         }
         Usuario.comprobarName(personajeIntroducido);
     }
-    
-    // public  void createJSONFile() {
-    //     // Crear un objeto JSON
-    //     JSONObject jsonObject = new JSONObject();
-    //     String pel = lblPeliculasOutput.getText();
-    //     // Agregar datos al objeto JSON
-    //     jsonObject.put("Peliculas", pel);
-    //     jsonObject.put("Series", lblSeriesOutput.getText());
-    //     jsonObject.put("Videojuegos",lblVideojuegosOutput.getText());
 
-        
-    //     // Escribir el objeto JSON en un archivo
-    //     try (FileWriter file = new FileWriter("data.json")) {
-    //         file.write(jsonObject.toString(4)); // 4 es el número de espacios para formatear
-    //         System.out.println("JSON file created successfully!");
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-    public  void createJSONFile() {
+    public void createJSONFile() {
         // Crear un mapa con los datos especificados
         String pel = lblPeliculasOutput.getText();
         String ser = lblSeriesOutput.getText();
         String jue = lblVideojuegosOutput.getText();
+        String usu = lblUsuarioPanel.getText();
+        String per = txtIntroducirPersonaje.getText();
         Map<String, String> data = new HashMap<>();
-        
+
         // Asignar las claves y valores del JSON
+        data.put("Usuario", usu);
         data.put("Peliculas", pel);
         data.put("Series", ser);
         data.put("Videojuegos", jue);
-        
-
+        data.put("Personaje", per);
         // Crear un objeto ObjectMapper de Jackson
         ObjectMapper objectMapper = new ObjectMapper();
 
         // Escribir el mapa en un archivo JSON
         try {
             // Especificamos el nombre del archivo JSON
-            File jsonFile = new File("data.json");
+            File jsonFile = new File("disneyapi\\src\\main\\resources\\disneyapi\\" + lblUsuarioPanel.getText() + ".json");
 
             // Escribir los datos en el archivo JSON
             objectMapper.writeValue(jsonFile, data);
@@ -196,33 +185,23 @@ public class UsuarioController {
             e.printStackTrace();
         }
     }
-    // public void createXMLFile() {
-    //     // Crear un mapa con los datos especificados
-    //     String pel = lblPeliculasOutput.getText();
-    //     String ser = lblSeriesOutput.getText();
-    //     String jue = lblVideojuegosOutput.getText();
-    //     Map<String, String> data = new HashMap<>();
-        
-    //     // Asignar las claves y valores del XML
-    //     data.put("Series",pel);
-    //     data.put("Videojuegos",ser);
-    //     data.put("Peliculas", jue);
 
-    //     // Crear un objeto XmlMapper de Jackson
-    //     XmlMapper xmlMapper = new XmlMapper();
+    public void comprobarUsuario() {
+        String usuarioPanel = lblUsuarioPanel.getText();
+        File jsonFile = new File("disneyapi\\src\\main\\resources\\disneyapi\\" + usuarioPanel + ".json");
 
-    //     // Escribir el mapa en un archivo XML
-    //     try {
-    //         // Especificamos el nombre del archivo XML
-    //         File xmlFile = new File("data.xml");
-
-    //         // Escribir los datos en el archivo XML
-    //         xmlMapper.writeValue(xmlFile, data);
-
-    //         System.out.println("XML file created successfully using Jackson!");
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+        // Crear un objeto ObjectMapper de Jackson
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (jsonFile.exists()) {
+            try {
+                // Leer el archivo JSON y convertirlo a un mapa
+                Map<String, String> data = objectMapper.readValue(jsonFile, Map.class);
+                showAlert("Ultima busqueda", data.get("Personaje") );
+                System.out.println("pspsps");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
