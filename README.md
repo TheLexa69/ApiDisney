@@ -63,4 +63,36 @@ Verifica la existencia de la base de datos. Si no existe, realiza una petición 
 ![MainController](Captura8.png)  
 
 ### AdminController
-Utiliza
+Utiliza `AdminModel.java` para crear y eliminar usuarios de la base de datos. Permite listar todos los usuarios y eliminarlos buscando su ID en el JSON.
+
+![AdminController](Captura9.png)  
+![AdminController](Captura10.png)  
+
+---
+
+## Reparto de Tareas
+
+- **Diego:** Usuario, UsuarioController, README
+- **Luis Guillermo:** Resto de las funcionalidades
+
+---
+
+## Control de Errores
+
+- **Uso Offline:** La aplicación almacena el último estado de ejecución. Al iniciar, pregunta al usuario si desea recuperar la última consulta, permitiendo su recuperación offline.
+- **Control de Acceso:** Implementación de un login con usuario y contraseña almacenados en un archivo de propiedades, con encriptación.
+- **Ordenación de Resultados:** Los resultados de las consultas se ordenan y almacenan adecuadamente.
+
+![Control de Errores](Captura11.png)  
+
+---
+
+## Tiempo Estimado
+
+El desarrollo del proyecto requirió muchas horas de trabajo.
+
+![Tiempo Estimado](Captura13.png)  
+
+---
+
+¡Gracias por leer!
